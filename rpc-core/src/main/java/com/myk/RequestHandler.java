@@ -1,4 +1,4 @@
-package server;
+package com.myk.server;
 
 import entity.RpcRequest;
 import entity.RpcResponse;

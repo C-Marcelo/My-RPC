@@ -1,11 +1,12 @@
-package server;
+package com.myk.socket;
 
-import client.registry.DefaultServiceRegistry;
-import client.registry.ServiceRegistry;
+import com.myk.RequestHandler;
+import com.myk.RpcServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+
+import javax.imageio.spi.ServiceRegistry;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
@@ -13,9 +14,9 @@ import java.util.concurrent.*;
 /**
  * @author myk
  */
-public class RpcServer {
+public class SocketServer implements RpcServer {
     private final ExecutorService threadPool;
-    private static final Logger logger = LoggerFactory.getLogger(RpcServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketServer.class);
 
     private static final int CORE_POOL_SIZE = 5;
     private static final int MAXIMUM_POOL_SIZE = 50;
@@ -23,7 +24,7 @@ public class RpcServer {
     private static final int BLOCKING_QUEUE_CAPACITY = 100;
     private final ServiceRegistry serviceRegistry;
     private final RequestHandler requestHandler = new RequestHandler();
-    public RpcServer(ServiceRegistry serviceRegistry) {
+    public SocketServer(ServiceRegistry serviceRegistry) {
         this.serviceRegistry = serviceRegistry;
         TimeUnit seconds = TimeUnit.SECONDS;
         BlockingQueue<Runnable> workingQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);

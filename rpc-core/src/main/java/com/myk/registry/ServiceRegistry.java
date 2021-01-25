@@ -1,4 +1,4 @@
-package client.registry;
+package registry;
 
 /**
  * @author myk

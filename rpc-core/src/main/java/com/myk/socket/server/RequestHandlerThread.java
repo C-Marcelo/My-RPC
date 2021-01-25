@@ -1,6 +1,7 @@
-package server;
+package com.myk.server;
 
-import client.registry.ServiceRegistry;
+import com.myk.RequestHandler;
+import com.myk.registry.ServiceRegistry;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import org.slf4j.Logger;

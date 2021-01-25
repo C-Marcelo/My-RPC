@@ -1,7 +1,8 @@
-package client;
+package com.myk.client;
 
 import entity.RpcRequest;
 import entity.RpcResponse;
+import com.myk.socket.client.SocketClient;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -32,7 +33,7 @@ public class RpcClientProxy implements InvocationHandler {
                 .parameters(args)
                 .paramTypes(method.getParameterTypes())
                 .build();
-        RpcClient rpcClient = new RpcClient();
+        SocketClient rpcClient = new SocketClient();
         return ((RpcResponse) rpcClient.sendRequest(rpcRequest, host, port)).getData();
     }
 }
