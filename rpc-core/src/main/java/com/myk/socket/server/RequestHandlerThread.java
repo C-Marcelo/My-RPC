@@ -1,4 +1,4 @@
-package com.myk.server;
+package com.myk.socket.server;
 
 import com.myk.RequestHandler;
 import com.myk.registry.ServiceRegistry;
