@@ -4,6 +4,7 @@ import com.myk.RpcClient;
 import com.myk.codec.CommonDecoder;
 import com.myk.codec.CommonEncoder;
 import com.myk.serializer.JsonSerializer;
+import com.myk.serializer.KryoSerializer;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import io.netty.bootstrap.Bootstrap;
