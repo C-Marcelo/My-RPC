@@ -1,17 +1,16 @@
 import Service.HelloServiceImpl;
-import com.myk.registry.DefaultServiceRegistry;
-import com.myk.socket.server.SocketServer;
+import com.myk.HelloService;
+import com.myk.serializer.KryoSerializer;
+import com.myk.transport.socket.server.SocketServer;
 
 /**
  * @author myk
  */
 public class SocketServerTest {
     public static void main(String[] args) {
-        DefaultServiceRegistry registry = new DefaultServiceRegistry();
-        HelloServiceImpl service = new HelloServiceImpl();
-        registry.register(service);
-        SocketServer server = new SocketServer(registry);
-        server.start(8086);
-
+        HelloService helloService = new HelloServiceImpl();
+        SocketServer socketServer = new SocketServer("127.0.0.1", 9998);
+        socketServer.setSerializer(new KryoSerializer());
+        socketServer.publishService(helloService, HelloService.class);
     }
 }

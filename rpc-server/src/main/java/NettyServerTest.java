@@ -1,17 +1,16 @@
 import Service.HelloServiceImpl;
 import com.myk.HelloService;
-import com.myk.netty.server.NettyServer;
-import com.myk.registry.DefaultServiceRegistry;
+import com.myk.serializer.KryoSerializer;
+import com.myk.transport.netty.server.NettyServer;
 
 /**
  * @author myk
  */
 public class NettyServerTest {
     public static void main(String[] args) {
-        NettyServer nettyServer = new NettyServer();
-        HelloService service = new HelloServiceImpl();
-        DefaultServiceRegistry registry = new DefaultServiceRegistry();
-        registry.register(service);
-        nettyServer.start(8086);
+        HelloService helloService = new HelloServiceImpl();
+        NettyServer server = new NettyServer("127.0.0.1", 9999);
+        server.setSerializer(new KryoSerializer());
+        server.publishService(helloService, HelloService.class);
     }
 }

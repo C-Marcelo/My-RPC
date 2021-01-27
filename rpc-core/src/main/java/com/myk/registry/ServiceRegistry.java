@@ -1,12 +1,12 @@
 package com.myk.registry;
 
+import java.net.InetSocketAddress;
+
 /**
  * @author myk
  */
 public interface ServiceRegistry {
+    void register(String serviceName, InetSocketAddress inetSocketAddress);
 
-     <T> void register(T service);
-
-     Object getService(String serviceName);
-
+    InetSocketAddress lookupService(String serviceName);
 }
