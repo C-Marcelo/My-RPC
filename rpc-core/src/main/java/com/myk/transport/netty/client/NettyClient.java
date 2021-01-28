@@ -1,17 +1,15 @@
 package com.myk.transport.netty.client;
 
-import com.myk.registry.NacosServiceRegistry;
+import com.myk.loadbalancer.LoadBalancer;
+import com.myk.nacos.NacosServiceUtils;
 import com.myk.transport.RpcClient;
-import com.myk.registry.ServiceRegistry;
+import com.myk.nacos.ServiceRegistry;
 import com.myk.serializer.CommonSerializer;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import enumeration.RpcError;
 import exception.RpcException;
-import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +23,17 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class NettyClient implements RpcClient {
     private static final Logger logger = LoggerFactory.getLogger(NettyClient.class);
-    private static final Bootstrap bootstrap;
 
 
     private final ServiceRegistry serviceRegistry;
     private CommonSerializer serializer;
 
     public NettyClient() {
-        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceRegistry = new NacosServiceUtils();
+    }
+
+    public NettyClient(LoadBalancer loadBalancer) {
+        this.serviceRegistry = new NacosServiceUtils(loadBalancer);
     }
 
     @Override
@@ -40,13 +41,6 @@ public class NettyClient implements RpcClient {
         this.serializer = serializer;
     }
 
-    static {
-        EventLoopGroup group = new NioEventLoopGroup();
-        bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .option(ChannelOption.SO_KEEPALIVE, true);
-    }
 
     @Override
     public Object sendRequest(RpcRequest rpcRequest) {

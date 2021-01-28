@@ -1,7 +1,6 @@
 package com.myk.codec;
 
 import com.myk.serializer.CommonSerializer;
-import com.myk.serializer.JsonSerializer;
 import entity.RpcRequest;
 import enumeration.PackageType;
 import io.netty.buffer.ByteBuf;

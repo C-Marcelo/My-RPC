@@ -1,8 +1,8 @@
 package com.myk.transport.socket.client;
 
 import com.myk.transport.RpcClient;
-import com.myk.registry.NacosServiceRegistry;
-import com.myk.registry.ServiceRegistry;
+import com.myk.nacos.NacosServiceUtils;
+import com.myk.nacos.ServiceRegistry;
 import com.myk.serializer.CommonSerializer;
 import com.myk.transport.socket.util.ObjectReader;
 import com.myk.transport.socket.util.ObjectWriter;
@@ -35,7 +35,7 @@ public class SocketClient implements RpcClient {
     private CommonSerializer serializer;
 
     public SocketClient() {
-        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceRegistry = new NacosServiceUtils();
     }
 
     @Override

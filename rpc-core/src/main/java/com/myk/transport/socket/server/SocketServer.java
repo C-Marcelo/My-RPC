@@ -4,8 +4,8 @@ import com.myk.handler.RequestHandler;
 import com.myk.transport.RpcServer;
 import com.myk.provider.DefaultServiceProvider;
 import com.myk.provider.ServiceProvider;
-import com.myk.registry.NacosServiceRegistry;
-import com.myk.registry.ServiceRegistry;
+import com.myk.nacos.NacosServiceUtils;
+import com.myk.nacos.ServiceRegistry;
 import com.myk.serializer.CommonSerializer;
 import enumeration.RpcError;
 import exception.RpcException;
@@ -41,7 +41,7 @@ public class SocketServer implements RpcServer {
         this.host = host;
         this.port = port;
         threadPool = ThreadPoolFactory.createDefaultThreadPool("socket-rpc-server");
-        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceRegistry = new NacosServiceUtils();
         this.serviceProvider = new DefaultServiceProvider();
     }
 

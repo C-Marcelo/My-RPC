@@ -2,6 +2,9 @@ import Service.HelloServiceImpl;
 import com.myk.HelloService;
 import com.myk.serializer.KryoSerializer;
 import com.myk.transport.netty.server.NettyServer;
+import org.junit.Test;
+
+import java.util.Arrays;
 
 /**
  * @author myk
@@ -13,4 +16,6 @@ public class NettyServerTest {
         server.setSerializer(new KryoSerializer());
         server.publishService(helloService, HelloService.class);
     }
+
+
 }

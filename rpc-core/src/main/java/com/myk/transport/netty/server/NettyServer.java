@@ -5,8 +5,8 @@ import com.myk.codec.CommonDecoder;
 import com.myk.codec.CommonEncoder;
 import com.myk.provider.DefaultServiceProvider;
 import com.myk.provider.ServiceProvider;
-import com.myk.registry.NacosServiceRegistry;
-import com.myk.registry.ServiceRegistry;
+import com.myk.nacos.NacosServiceUtils;
+import com.myk.nacos.ServiceRegistry;
 import com.myk.serializer.CommonSerializer;
 import enumeration.RpcError;
 import exception.RpcException;
@@ -39,7 +39,7 @@ public class NettyServer implements RpcServer {
     public NettyServer(String host, int port) {
         this.host = host;
         this.port = port;
-        serviceRegistry = new NacosServiceRegistry();
+        serviceRegistry = new NacosServiceUtils();
         serviceProvider = new DefaultServiceProvider();
     }
 
@@ -66,6 +66,8 @@ public class NettyServer implements RpcServer {
                         }
                     });
             ChannelFuture future = serverBootstrap.bind(host, port).sync();
+            logger.info("停止后服务器将会关闭所有服务！");
+            Runtime.getRuntime().addShutdownHook(new Thread(NacosServiceUtils::clearRegistry));
             future.channel().closeFuture().sync();
 
         } catch (InterruptedException e) {
